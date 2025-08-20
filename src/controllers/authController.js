@@ -1,9 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../utils/prisma.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "../config/env.js";
 
-const prisma = new PrismaClient();
+// Use shared Prisma instance
 
 export async function login(req, res, next) {
   try {
