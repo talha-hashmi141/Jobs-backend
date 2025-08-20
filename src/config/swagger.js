@@ -1,17 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-import path from "path";
-import { fileURLToPath } from "url";
-
-// Resolve absolute path to the routes directory so Swagger works on Vercel
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const routesGlob = path.join(__dirname, "..", "routes", "*.js");
-
-// Derive server URL for local and Vercel
-const serverUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : process.env.SERVER_URL || `http://localhost:${process.env.PORT || 3001}`;
 
 const options = {
   definition: {
@@ -23,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: serverUrl,
+        url: "http://localhost:3001",
       },
     ],
     components: {
@@ -36,7 +24,7 @@ const options = {
       },
     },
   },
-  apis: [routesGlob], // 👈 Swagger will scan your route files for annotations
+  apis: ["./src/routes/*.js"], // 👈 Swagger will scan your route files for annotations
 };
 
 export const swaggerSpec = swaggerJsdoc(options);

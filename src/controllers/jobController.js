@@ -1,4 +1,5 @@
-import { prisma } from "../utils/prisma.js";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export async function getJobs(req, res, next) {
   try {
