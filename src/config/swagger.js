@@ -1,5 +1,7 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const options = {
   definition: {
@@ -11,7 +13,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3001",
+        url: "/",
       },
     ],
     components: {
@@ -24,7 +26,8 @@ const options = {
       },
     },
   },
-  apis: ["./src/routes/*.js"], // 👈 Swagger will scan your route files for annotations
+  // Use an absolute glob path so it works on Vercel serverless too
+  apis: [path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "routes", "*.js")],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
